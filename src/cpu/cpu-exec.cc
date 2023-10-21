@@ -46,15 +46,11 @@ void cpu_exec(uint64_t n){
         ilog[ilog_idx].pc = cpu.pc;
         ilog[ilog_idx].inst = inst;
         ilog_idx = (ilog_idx + 1) % ILOG_SIZE;
-        // std::cout << "pc = " << std::hex << cpu.pc << '\t';
-        // char buf[100];
-        // disasm(buf, inst);
-        // std::cout << buf << std::endl;
 #endif
         decode_exec(inst);
-// #ifdef DEVICE
-//         if(cpu.state == SIM_RUNNING) device_update();
-// #endif
+#ifdef DEVICE
+        if(cpu.state == SIM_RUNNING) device_update();
+#endif
         if(cpu.state != SIM_RUNNING) break;
     }
 #ifndef CONFIG_REF
