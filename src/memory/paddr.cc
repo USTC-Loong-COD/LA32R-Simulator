@@ -26,8 +26,8 @@ uint32_t pmem_read(uint32_t addr, uint32_t len) {
 uint32_t paddr_read(uint32_t addr, uint32_t len) {
     if(!in_pmem(addr)){
 #ifndef DEVICE
-        // std::cout << "Read: Physical address " << std::hex << addr << " is outside of physical memory!" << std::endl;
-        // cpu.state = SIM_ABORT;
+        std::cout << "Read: Physical address " << std::hex << addr << " is outside of physical memory!" << std::endl;
+        cpu.state = SIM_ABORT;
         return 0;
 #else
         return mmio_read(addr, len);
@@ -51,8 +51,8 @@ void pmem_write(uint32_t addr, uint32_t data, uint32_t len) {
 void paddr_write(uint32_t addr, uint32_t data, uint32_t len) {
     if(!in_pmem(addr)){
 #ifndef DEVICE
-        // std::cout << "Write: Physical address " << std::hex << addr - CONFIG_PMEM_BASE << " is outside of physical memory!" << std::endl;
-        // cpu.state = SIM_ABORT;
+        std::cout << "Write: Physical address " << std::hex << addr - CONFIG_PMEM_BASE << " is outside of physical memory!" << std::endl;
+        cpu.state = SIM_ABORT;
         return;
 #else
         mmio_write(addr, data, len);

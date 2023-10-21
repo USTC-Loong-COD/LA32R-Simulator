@@ -10,7 +10,5 @@ int main(int argc, char* argv[]){
     reset();
     command_mainloop();
     free_device();
-
-    
     return cpu.state == SIM_ABORT;
 }

@@ -1,9 +1,10 @@
 .DEFUALT_GOAL := app
 
-SHARE = 1
+SHARE ?= 0
+
 ifeq ($(SHARE),1)
 SO = -so
-CFLAGS  += -fPIC -fvisibility=hidden
+CFLAGS  += -fPIC -fvisibility=hidden -DCONFIG_REF
 LDFLAGS += -shared -fPIC
 else 
 SO =
@@ -41,8 +42,7 @@ app: $(BINARY)
 
 $(BINARY): $(OBJS) 
 	@mkdir -p $(dir $@) && echo "$(COLOR_YELLOW)[LD]$(COLOR_NONE) build/$(notdir $@)"
-	@echo $(LD) $(LDFLAGS)  $^ -o $@ $(LIBS)
-	@$(LD) $(LDFLAGS)  $^ -o $@
+	@$(LD) $(LDFLAGS) $^ -o $@ $(LIBS)
 
 ARGS = 
 run: $(BINARY)
